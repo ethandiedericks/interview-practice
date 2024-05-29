@@ -1,10 +1,4 @@
-"""
-Given head which is a reference node to a singly-linked list. The value of each node in the linked list is either 0 or 1. The linked list holds the binary representation of a number.
-
-Return the decimal value of the number in the linked list.
-
-The most significant bit is at the head of the linked list.
-"""
+import unittest
 
 
 class ListNode:
@@ -40,11 +34,28 @@ def create_linked_list(binary_str):
     return head
 
 
-test_cases = [("101", 5), ("111", 7), ("0", 0), ("1", 1), ("1101", 13)]
+class TestSolution(unittest.TestCase):
+    def test_getDecimalValue(self):
+        solution = Solution()
+        test_cases = [
+            ("101", 5),
+            ("111", 7),
+            ("0", 0),
+            ("1", 1),
+            ("1101", 13),
+            ("10010", 18),
+            ("0000", 0),
+            ("001", 1),
+            ("01010", 10),
+            ("11111", 31),
+        ]
 
-solution = Solution()
-for binary_str, expected in test_cases:
-    head = create_linked_list(binary_str)
-    result = solution.getDecimalValue(head)
-    print(f"Binary: {binary_str} -> Decimal: {result}, Expected: {expected}")
-    assert result == expected, f"Test failed for binary: {binary_str}"
+        for binary_str, expected in test_cases:
+            with self.subTest(binary_str=binary_str, expected=expected):
+                head = create_linked_list(binary_str)
+                result = solution.getDecimalValue(head)
+                self.assertEqual(result, expected)
+
+
+if __name__ == "__main__":
+    unittest.main()
